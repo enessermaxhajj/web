@@ -20,16 +20,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
 
-      - name: Build & Push Backend
-        uses: docker/build-push-action@v5
-        with:
-          context: ./backend
-          push: true
-          tags: enessermaxhaj/backend:latest
-
-      - name: Build & Push Frontend
-        uses: docker/build-push-action@v5
-        with:
-          context: ./frontend   # folder ku ndodhet Dockerfile + package.json
-          push: true
-          tags: enessermaxhaj/frontend:latest
+      - name: Build & Push Docker Images with Compose
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
